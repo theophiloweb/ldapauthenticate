@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.9" type="module" client="site" method="upgrade">
+    <name>mod_ldapauthenticate</name>
+    <author>Teophilo Silva</author>
+    <creationDate>Junho 2024</creationDate>
+    <copyright>(C) 2024 Teophilo Silva. All rights reserved.</copyright>
+    <license>GNU/GPL</license>
+    <authorEmail>teophilo@gmail.com</authorEmail>
+    <authorUrl>https://github.com/theophiloweb</authorUrl>
+    <version>1.0.0</version>
+    <description>MOD_LDAPAUTHENTICATE_XML_DESCRIPTION</description>
+    <files>
+        <filename module="mod_ldapauthenticate">mod_ldapauthenticate.php</filename>
+        <filename>mod_ldapauthenticate.xml</filename>
+        <folder>tmpl</folder>
+        <folder>src</folder>
+        <folder>language</folder>
+    </files>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.mod_ldapauthenticate.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_ldapauthenticate.sys.ini</language>
+        <language tag="pt-BR">pt-BR/pt-BR.mod_ldapauthenticate.ini</language>
+        <language tag="pt-BR">pt-BR/pt-BR.mod_ldapauthenticate.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic" label="MOD_LDAPAUTHENTICATE_FIELDSET_BASIC_LABEL">
+                <field
+                    name="login_redirect_url"
+                    type="url"
+                    label="MOD_LDAPAUTHENTICATE_FIELD_LOGIN_REDIRECT_URL_LABEL"
+                    description="MOD_LDAPAUTHENTICATE_FIELD_LOGIN_REDIRECT_URL_DESC"
+                />
+                <field
+                    name="logout_redirect_url"
+                    type="url"
+                    label="MOD_LDAPAUTHENTICATE_FIELD_LOGOUT_REDIRECT_URL_LABEL"
+                    description="MOD_LDAPAUTHENTICATE_FIELD_LOGOUT_REDIRECT_URL_DESC"
+                />
+                <field
+                    name="show_logout_button"
+                    type="radio"
+                    label="MOD_LDAPAUTHENTICATE_FIELD_SHOW_LOGOUT_BUTTON_LABEL"
+                    description="MOD_LDAPAUTHENTICATE_FIELD_SHOW_LOGOUT_BUTTON_DESC"
+                    default="1"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

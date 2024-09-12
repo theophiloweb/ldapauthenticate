@@ -1,0 +1,125 @@
+
+
+<style>
+/* Estilos para o modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.ldap-login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ldap-login-form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.ldap-login-input {
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+    color: #333;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.ldap-login-input:focus {
+    background-color: #fff;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1), 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-btn {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 10px 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.login {
+    background-color: blue;
+}
+
+.logout {
+    background-color: green;
+}
+
+
+/*
+.ldap-login-button, .ldap-logout-button, .login-btn {
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 10px 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+*/
+
+.ldap-login-button:hover, .ldap-logout-button:hover, .login-btn:hover {
+    background-color: #555;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('loginModal');
+    var btn = document.getElementById('loginBtn');
+
+    btn.onclick = function() {
+        modal.style.display = 'flex';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+});
+</script>

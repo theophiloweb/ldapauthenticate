@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.9" type="plugin" group="authentication" method="upgrade">
+    <name>plg_authentication_ldapauthenticate</name>
+    <version>1.0</version>
+    <creationDate>2024-06-07</creationDate>
+    <author>Theophilo Silva</author>
+    <description>Plugin para autenticação via LDAP.</description>
+    <files>
+        <filename plugin="ldapauthenticate">pkg_ldapauthenticate.php</filename>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="ldap_server"
+                    type="text"
+                    label="Servidor LDAP"
+                    description="Endereço do servidor LDAP."
+                    default="ldap.com"
+                />
+                <field
+                    name="ldap_port"
+                    type="text"
+                    label="Porta LDAP"
+                    description="Porta do servidor LDAP."
+                    default="386"
+                />
+                <field
+                    name="ldap_base_dn"
+                    type="text"
+                    label="Base DN"
+                    description="Base DN para realizar a busca no LDAP."
+                    default="ou=People,dc=com,dc=br"
+                />
+                <field
+                    name="ldap_admin_username"
+                    type="text"
+                    label="Nome de usuário do administrador LDAP"
+                    description="Nome de usuário do administrador LDAP para realizar a autenticação."
+                    default="cn=admin,dc=com,dc=br"
+                />
+                <field
+                    name="ldap_admin_password"
+                    type="password"
+                    label="Senha do administrador LDAP"
+                    description="Senha do administrador LDAP para realizar a autenticação."
+                    default="1234"
+                />
+                <field
+                    name="ldap_uid_field"
+                    type="text"
+                    label="Campo de identificação do usuário"
+                    description="Nome do campo usado para identificar o usuário no LDAP."
+                    default="uid"
+                />
+                <field
+                    name="ldap_auth_method"
+                    type="list"
+                    label="Método de autenticação"
+                    description="Selecione o método de autenticação LDAP."
+                    default="none"
+                >
+                    <option value="none">Nenhum</option>
+                    <option value="ssl">SSL/TLS</option>
+                    <option value="starttls">STARTTLS</option>
+                </field>
+                <field
+                    name="ldap_fullname_field"
+                    type="text"
+                    label="Campo de nome completo"
+                    description="Nome do campo LDAP que contém o nome completo do usuário."
+                    default="cn"
+                />
+                <field
+                    name="ldap_username_field"
+                    type="text"
+                    label="Campo de nome de usuário"
+                    description="Nome do campo LDAP que contém o nome de usuário."
+                    default="uid"
+                />
+                <field
+                    name="ldap_email_field"
+                    type="text"
+                    label="Campo de email"
+                    description="Nome do campo LDAP que contém o email do usuário."
+                    default="mail"
+                />
+                <field
+                    name="ldap_user_groups"
+                    type="usergrouplist"
+                    label="Grupos de Usuários"
+                    description="Selecione até 10 grupos para os usuários autenticados."
+                    multiple="true"
+                    default="2,10"
+                />
+            </fieldset>
+        </fields>
+    </config>
+</extension>

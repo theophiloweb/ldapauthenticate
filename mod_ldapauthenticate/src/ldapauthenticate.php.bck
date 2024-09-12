@@ -1,0 +1,79 @@
+<?php
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Event\Dispatcher\EventDispatcherInterface;
+//use Joomla\CMS\Event\EventDispatcherInterface;
+//use Joomla\CMS\Event\Dispatcher\EventDispatcherInterface as JoomlaEventDispatcherInterface;
+//use Joomla\Event\Dispatcher\EventDispatcherInterface;
+//use Joomla\Event\Dispatcher\EventDispatcherInterface as JoomlaEventDispatcherInterface ;
+use Joomla\CMS\Authentication\Authentication;
+use Joomla\CMS\Authentication\AuthenticationResponse;
+
+$app = Factory::getApplication();
+$input = $app->input;
+
+// Obtenha as credenciais enviadas pelo formulário
+$username = $input->post->get('username', '', 'USERNAME');
+$password = $input->post->get('password', '', 'STRING');
+
+
+// Verifique se os campos de login e senha foram preenchidos
+if (empty($username) || empty($password)) {
+    // Exiba uma mensagem de erro
+    $app->enqueueMessage(Text::_('MOD_LDAPAUTHENTICATE_MISSING_CREDENTIALS'), 'error');
+    $app->redirect(Route::_('index.php', false));
+    return;
+}
+
+$credentials = array(
+    'username' => $username,
+    'password' => $password
+);
+
+
+$options = array('remember' => $input->getBool('remember', false));
+$response = new AuthenticationResponse();
+
+// Carrega o plugin LDAP especificamente
+PluginHelper::importPlugin('authentication', 'ldapauthenticate');
+
+// Obtém a lista de todos os plugins de autenticação
+$plugins = JPluginHelper::getPlugin('authentication', 'ldapauthenticate');
+
+var_dump($plugins);
+
+// Verifica se o plugin LDAPauthenticate está na lista
+if (isset($plugins->ldapauthenticate)) {
+    // Carrega o objeto do plugin LDAPauthenticate
+    $plugin = JPluginHelper::getPlugin('authentication', 'ldapauthenticate');
+
+    // Chama diretamente o método onUserAuthenticate do plugin
+    $results = $plugin->onUserAuthenticate($credentials, $options, $response);
+} else {
+    // Se o plugin LDAPauthenticate não estiver na lista, exibe uma mensagem de erro
+    echo "O plugin LDAPauthenticate não foi encontrado.";
+}
+
+
+
+var_dump($results);
+die();
+
+if ($response->status === Authentication::STATUS_SUCCESS) {
+    // Se a autenticação for bem-sucedida, loga o usuário e redireciona para a página inicial
+    $app->login($credentials, $options);
+    // Obtém a URL de redirecionamento
+    $return = base64_decode($input->post->get('return', '', 'BASE64'));
+
+    // Redireciona para a URL configurada
+    $app->redirect($return ?: Uri::base());
+} else {
+    // Exibe uma mensagem de erro se a autenticação falhar
+    $app->enqueueMessage($response->error_message, 'error');
+    $app->redirect(Route::_('index.php', false));
+}
